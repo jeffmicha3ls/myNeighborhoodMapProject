@@ -73,7 +73,7 @@
   <body>
     <div class="container">
       <div class="options-box">
-        <h1>Find Your Favorite Coffee Shop</h1>
+        <h1 class="text">Find Your Favorite Coffee Shop</h1>
         <div>
           <input id="show-coffee" type="button" value="Show All Coffee Shops">
           <input id="hide-coffee" type="button" value="Hide All Coffee Shops">
@@ -87,9 +87,11 @@
           <input id="area-zoom" type="button" value="Zoom">
         </div>
         <hr>
-        <div>
-          <span class="text">Coffee shops in the North Seattle suburbs.</span>
-          <input id="coffee-list" type="" value="">
+        <div class="text">
+          <h3>Coffee shops in North Seattle</h3>
+          <ul data-bind="foreach: coffeeList">
+            <li data-bind="text: title"></li>
+          </ul>
         </div>
       <div id="map"></div>
     </div>
@@ -109,7 +111,8 @@
             ]
           }
         ];
-        // Constructor creates a new map - only center and zoom are required.
+
+        // Creating new map
         map = new google.maps.Map(document.getElementById('map'), {
           center: {lat: 47.7853000, lng: -122.2988500},
           zoom: 13,
@@ -166,8 +169,8 @@
         var highlightedIcon = makeMarkerIcon('F71313');
 
         var Coffee = function(data) {
-          this.locale = ko.observable(data.location);
-          this.place = ko.observable(data.title);
+          this.title = ko.observable(data.title);
+          this.location = ko.observable(data.location);
         };
 
         var ViewModel = function() {
