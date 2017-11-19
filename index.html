@@ -56,6 +56,9 @@
       .text {
         font-size: 12px;
       }
+      li {
+        font-size: 12px;
+      }
       #toggle-drawing {
         width: 40%;
         position: relative;
@@ -87,11 +90,15 @@
           <input id="area-zoom" type="button" value="Zoom">
         </div>
         <hr>
-        <div class="text">
-          <h3>Coffee shops in North Seattle</h3>
+        <div>
+          <h1 class="text">Coffee shops in North Seattle</h1>
           <ul data-bind="foreach: coffeeList">
-            <li data-bind="text: title"></li>
+            <li data-bind="text: title, click: $parent.setCoffee"></li>
           </ul>
+          <div data-bind="with: currentCoffee">
+            <h4 data-bind="text: title"></h4>
+            <div data-bind=""></div>
+          </div>
         </div>
       <div id="map"></div>
     </div>
@@ -164,6 +171,7 @@
             ]
           }
         });
+
         // These are the listing marker icons.
         var defaultIcon = makeMarkerIcon('1B965E');
         var highlightedIcon = makeMarkerIcon('F71313');
@@ -181,6 +189,12 @@
             locations.forEach(function(coffeeItem) {
               self.coffeeList.push( new Coffee(coffeeItem) );
             });
+
+            this.currentCoffee = ko.observable(this.coffeeList()[0] );
+
+            this.setCoffee = function(clickedCoffee) {
+              self.currentCoffee(clickedCoffee)
+            };
         };
         ko.applyBindings(new ViewModel());
 
@@ -221,9 +235,7 @@
         document.getElementById('area-zoom').addEventListener('click', function() {
           areaZoom();
         });
-        document.getElementById('coffee-list').addEventListener('click', function() {
-          listCoffeeShops();
-        });
+
         // Add an event listener so that the polygon is captured,  call the
         // searchWithinPolygon function. This will show the markers in the polygon,
         // and hide any outside of it.
@@ -353,7 +365,7 @@
         } else {
           geocoder.geocode(
             {address: address,
-              componentRestrictions: {locality: 'WA'}
+              componentRestrictions: {locality: 'Washington'}
             }, function(results, status) {
               if (status == google.maps.GeocoderStatus.OK) {
                 map.setCenter(results[0].geometry.location);
