@@ -28,8 +28,7 @@
         <div>
           <h1 class="text">Coffee shops in North Seattle</h1>
           <ul data-bind="foreach: coffeeList">
-            <li data-bind="text: title, click: $parent.coffeeClick"></li>
-            <!-- <li data-bind="text: title, click: $parent.coffeeClick, attr: {src: location}"></li> -->
+            <li class="location" data-bind="text: title, click: $parent.showCoffee, visible: appear"></li>
           </ul>
         </div>
       <div id="map"></div>

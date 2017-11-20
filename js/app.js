@@ -113,8 +113,10 @@ function initMap() {
   });
 
   var Coffee = function(data) {
-    this.title = ko.observable(data.title);
-    this.location = ko.observable(data.location);
+    var self = this;
+    self.title = ko.observable(data.title);
+    self.location = ko.observable(data.location);
+    self.appear = ko.observable(true);
   };
 
   var viewModel = function() {
@@ -128,18 +130,13 @@ function initMap() {
 
       this.currentCoffee = ko.observable(this.coffeeList()[0] );
 
-      this.coffeeClick = function(clickedCoffee) {
-        //makeInfoWindow(this, newInfoWindow);
-        this.setIcon(highlightedIcon);
-        console.log(this);
-      };
-
-      this.coffeeHover = function() {
-        this.setIcon(highlightedIcon);
+      self.showCoffee = function(locations) {
+        google.maps.event.trigger(locations.marker, 'click');
       };
 
       this.setCoffee = function(clickedCoffee) {
         self.currentCoffee(clickedCoffee)
+        console.log(currentCoffee);
       };
   };
   ko.applyBindings(new viewModel());
