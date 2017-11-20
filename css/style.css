@@ -1,0 +1,69 @@
+html,
+body {
+  font-family: Verdana, sans-serif;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+.container {
+  height: 100%;
+  position: relative;
+}
+input {
+  font-size: 10px;
+}
+h1 {
+  color: #525454;
+  font-size: 20px;
+  margin: 0 0 10px 0;
+  text-align: center;
+}
+#hide-coffee,
+#show-coffee {
+  width: 48%;
+}
+hr {
+  background: #D0D7D9;
+  height: 1px;
+  margin: 20px 0 20px 0;
+  border: none;
+}
+#map {
+  bottom:0px;
+  height: 100%;
+  left: 300px;
+  position: absolute;
+  right: 0px;
+}
+.options-box {
+  background: #fff;
+  border: 1px solid #999;
+  border-radius: 3px;
+  height: 100%;
+  line-height: 17px;
+  padding: 10px 10px 30px 10px;
+  text-align: left;
+  width: 280px;
+}
+#pano {
+  width: 300px;
+  height: 300px;
+}
+.text {
+  font-size: 12px;
+}
+li {
+  font-size: 12px;
+}
+#toggle-drawing {
+  width: 40%;
+  position: relative;
+  margin-left: 10px;
+}
+#area-zoom {
+  width: 25%;
+}
+#area-zoom-text {
+  position: relative;
+  width: 70%;
+}
