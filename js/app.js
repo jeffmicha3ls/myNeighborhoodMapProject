@@ -80,6 +80,8 @@ function initMap() {
     var title = locationsModel[i].title;
     //console.log(locationsModel[i].title);
     // Create a marker per location, and put into markers array.
+    this.marked = ko.observableArray([]);
+
     var marker = new google.maps.Marker({
       position: position,
       title: title,
@@ -87,6 +89,7 @@ function initMap() {
       icon: defaultIcon,
       id: i
     });
+    this.marked.push(marker);
     // Push the marker to our array of markers.
     markers.push(marker);
     // Create an onclick event to open the large infowindow at each marker.
@@ -117,6 +120,7 @@ function initMap() {
     self.title = ko.observable(data.title);
     self.location = ko.observable(data.location);
     self.appear = ko.observable(true);
+    this.marked = ko.observable(marker);
   };
 
   var viewModel = function() {
@@ -131,7 +135,7 @@ function initMap() {
       this.currentCoffee = ko.observable(this.coffeeList()[0] );
 
       self.showCoffee = function(locations) {
-        google.maps.event.trigger(locations.marker, 'click');
+        google.maps.event.trigger(this.marked, 'click');
       };
 
       this.setCoffee = function(clickedCoffee) {
