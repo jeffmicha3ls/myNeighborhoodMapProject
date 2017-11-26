@@ -16,7 +16,7 @@ function initMap() {
 
   // Creating new map
   map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: 47.7853000, lng: -122.2988500},
+    center: {lat: 47.7841000, lng: -122.3082000},
     zoom: 13,
     styles: styles,
     mapTypeControl: false
@@ -54,8 +54,7 @@ function initMap() {
       icon: defaultIcon,
       id: i
     });
-    this.marked = ko.observableArray([]);
-    marked.push(marker);
+
     // Push the marker to our array of markers.
     markers.push(marker);
     // Create an onclick event to open the large infowindow at each marker.
@@ -65,7 +64,12 @@ function initMap() {
     // Two event listeners - one for mouseover, one for mouseout,
     // to change the colors back and forth.
     marker.addListener('mouseover', function() {
+      var self = this;
+      self.setAnimation(google.maps.Animation.BOUNCE);
       this.setIcon(highlightedIcon);
+      setTimeout(function () {
+        self.setAnimation(null);
+      }, 1400);
     });
 
     marker.addListener('mouseout', function() {
@@ -103,11 +107,15 @@ function initMap() {
 
       self.setCoffee = function(clickedCoffee) {
         self.currentCoffee(clickedCoffee);
-        google.maps.event.trigger(this.marker, 'click');
-        //console.log(self.title, data);
+        var marker = markers.find(function(marker) {
+          return marker.title === clickedCoffee.title();
+        });
+        google.maps.event.trigger(marker, 'mouseover');
+        google.maps.event.trigger(marker, 'mouseout');
       };
   };
   ko.applyBindings(new ViewModel());
+
 
   // Markers in the polygon are shown and hide any outside of it.
   drawingManager.addListener('overlaycomplete', function(event) {
@@ -257,23 +265,23 @@ var locations = [
   {title: 'Starbucks', location: {lat: 47.8177953, lng: -122.3174948}},
   {title: 'Rila Bakery & Cafe', location: {lat: 47.8210347, lng: -122.3367312}},
   {title: 'Cafe Aroma', location: {lat: 47.748389, lng: -122.323504}},
-  {title: 'Starbucks', location: {lat: 47.8242583, lng: -122.2714811}},
+  //{title: 'Starbucks', location: {lat: 47.8242583, lng: -122.2714811}},
   {title: 'Double Cup Coffee', location: {lat: 47.80174239999999, lng: -122.3297188}},
   {title: 'Rooster\'s Espresso', location: {lat: 47.798316, lng: -122.328315}},
   {title: 'Espresso Break', location: {lat: 47.7879252, lng: -122.30878}},
   {title: 'Jason\'s Java', location: {lat: 47.7842249, lng: -122.273969}},
   {title: 'Perfetto Espresso', location: {lat: 47.777868, lng: -122.3088007}},
   {title: 'Supreme Bean Espresso', location: {lat: 47.7751154, lng: -122.3093113}},
-  {title: 'Starbucks', location: {lat: 47.7759684, lng: -122.3102143}},
+  //{title: 'Starbucks', location: {lat: 47.7759684, lng: -122.3102143}},
   {title: 'Richmond Beach Coffee Shop', location: {lat: 47.77016700000001, lng: -122.3765907}},
   {title: 'Seattle Gourmet Coffee', location: {lat: 47.7573859, lng: -122.314393}},
   {title: 'Ladybug Bikini Espresso', location: {lat: 47.7465702, lng: -122.3459965}},
-  {title: 'Starbucks', location: {lat: 47.7789243, lng: -122.220655}},
+  //{title: 'Starbucks', location: {lat: 47.7789243, lng: -122.220655}},
   {title: 'Espresso Works', location: {lat: 47.7587894, lng: -122.2522275}},
   {title: 'Coffee Sensations', location: {lat: 47.7689583, lng: -122.2693728}},
   {title: 'Grounded Espresso', location: {lat: 47.7821982, lng: -122.3669183}},
   {title: 'A Brewed Awakening', location: {lat: 47.8065516, lng: -122.3468446}},
-  {title: 'Starbucks', location: {lat: 47.790358, lng: -122.2159954}},
+  //{title: 'Starbucks', location: {lat: 47.790358, lng: -122.2159954}},
   {title: 'Waterfront Coffee Company', location: {lat: 47.812553, lng: -122.38211}},
   {title: 'Gourmet Latte', location: {lat: 47.7916057, lng: -122.2333771}},
   {title: 'Sweet Shots', location: {lat: 47.8049276, lng: -122.3279186}}
