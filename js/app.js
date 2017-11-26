@@ -22,40 +22,6 @@ function initMap() {
     mapTypeControl: false
   });
 
-  // These are the coffee shops that will be displayed
-  var locationsModel = [
-    {title: 'Speed Trap Espresso', location: {lat: 47.8172539, lng: -122.2898432}},
-    {title: 'Stopwatch Espresso', location: {lat: 47.8214669, lng: -122.2822018}},
-    {title: 'Pit Stop Espresso', location: {lat: 47.8134796, lng: -122.2859313}},
-    {title: 'Urban City Coffee', location: {lat: 47.80662230000001, lng: -122.2917646}},
-    {title: 'Caffe Ladro', location: {lat: 47.8209394, lng: -122.3189275}},
-    {title: 'Aloha Cafe', location: {lat: 47.8210596, lng: -122.3255188}},
-    {title: 'Gourmet Latte', location: {lat: 47.82147519999999, lng: -122.3191965}},
-    {title: 'Starbucks', location: {lat: 47.8177953, lng: -122.3174948}},
-    {title: 'Rila Bakery & Cafe', location: {lat: 47.8210347, lng: -122.3367312}},
-    {title: 'Cafe Aroma', location: {lat: 47.748389, lng: -122.323504}},
-    {title: 'Starbucks', location: {lat: 47.8242583, lng: -122.2714811}},
-    {title: 'Double Cup Coffee', location: {lat: 47.80174239999999, lng: -122.3297188}},
-    {title: 'Rooster\'s Espresso', location: {lat: 47.798316, lng: -122.328315}},
-    {title: 'Espresso Break', location: {lat: 47.7879252, lng: -122.30878}},
-    {title: 'Jason\'s Java', location: {lat: 47.7842249, lng: -122.273969}},
-    {title: 'Perfetto Espresso', location: {lat: 47.777868, lng: -122.3088007}},
-    {title: 'Supreme Bean Espresso', location: {lat: 47.7751154, lng: -122.3093113}},
-    {title: 'Starbucks', location: {lat: 47.7759684, lng: -122.3102143}},
-    {title: 'Richmond Beach Coffee Shop', location: {lat: 47.77016700000001, lng: -122.3765907}},
-    {title: 'Seattle Gourmet Coffee', location: {lat: 47.7573859, lng: -122.314393}},
-    {title: 'Ladybug Bikini Espresso', location: {lat: 47.7465702, lng: -122.3459965}},
-    {title: 'Starbucks', location: {lat: 47.7789243, lng: -122.220655}},
-    {title: 'Espresso Works', location: {lat: 47.7587894, lng: -122.2522275}},
-    {title: 'Coffee Sensations', location: {lat: 47.7689583, lng: -122.2693728}},
-    {title: 'Grounded Espresso', location: {lat: 47.7821982, lng: -122.3669183}},
-    {title: 'A Brewed Awakening', location: {lat: 47.8065516, lng: -122.3468446}},
-    {title: 'Starbucks', location: {lat: 47.790358, lng: -122.2159954}},
-    {title: 'Waterfront Coffee Company', location: {lat: 47.812553, lng: -122.38211}},
-    {title: 'Gourmet Latte', location: {lat: 47.7916057, lng: -122.2333771}},
-    {title: 'Sweet Shots', location: {lat: 47.8049276, lng: -122.3279186}}
-  ];
-
   // Section for drawing polygon
   var newInfoWindow = new google.maps.InfoWindow();
   var drawingManager = new google.maps.drawing.DrawingManager({
@@ -74,22 +40,22 @@ function initMap() {
   var highlightedIcon = makeMarkerIcon('F71313');
 
   // The following group uses the location array to create an array of markers on initialize.
-  for (var i = 0; i < locationsModel.length; i++) {
+  for (var i = 0; i < locations.length; i++) {
     // Get the position from the location array.
-    var position = locationsModel[i].location;
-    var title = locationsModel[i].title;
-    //console.log(locationsModel[i].title);
-    // Create a marker per location, and put into markers array.
-    this.marked = ko.observableArray([]);
+    var position = locations[i].location;
+    var title = locations[i].title;
 
+    // Create a marker per location, and put into markers array.
     var marker = new google.maps.Marker({
       position: position,
+      map: map,
       title: title,
       animation: google.maps.Animation.DROP,
       icon: defaultIcon,
       id: i
     });
-    this.marked.push(marker);
+    this.marked = ko.observableArray([]);
+    marked.push(marker);
     // Push the marker to our array of markers.
     markers.push(marker);
     // Create an onclick event to open the large infowindow at each marker.
@@ -115,35 +81,33 @@ function initMap() {
     areaZoom();
   });
 
+// Model
   var Coffee = function(data) {
     var self = this;
     self.title = ko.observable(data.title);
     self.location = ko.observable(data.location);
-    self.appear = ko.observable(true);
-    this.marked = ko.observable(marker);
+    self.marker = ko.observable(marker.position);
   };
 
-  var viewModel = function() {
+// View Model
+  var ViewModel = function() {
       var self = this;
 
       this.coffeeList = ko.observableArray([]);
 
-      locationsModel.forEach(function(coffeeItem) {
+      locations.forEach(function(coffeeItem) {
         self.coffeeList.push( new Coffee(coffeeItem) );
       });
 
       this.currentCoffee = ko.observable(this.coffeeList()[0] );
 
-      self.showCoffee = function(locations) {
-        google.maps.event.trigger(this.marked, 'click');
-      };
-
-      this.setCoffee = function(clickedCoffee) {
-        self.currentCoffee(clickedCoffee)
-        console.log(currentCoffee);
+      self.setCoffee = function(clickedCoffee) {
+        self.currentCoffee(clickedCoffee);
+        google.maps.event.trigger(this.marker, 'click');
+        //console.log(self.title, data);
       };
   };
-  ko.applyBindings(new viewModel());
+  ko.applyBindings(new ViewModel());
 
   // Markers in the polygon are shown and hide any outside of it.
   drawingManager.addListener('overlaycomplete', function(event) {
@@ -280,3 +244,37 @@ function areaZoom() {
       });
   }
 }
+
+// MODEL: These are the coffee shops that will be displayed
+var locations = [
+  {title: 'Speed Trap Espresso', location: {lat: 47.8172539, lng: -122.2898432}},
+  {title: 'Stopwatch Espresso', location: {lat: 47.8214669, lng: -122.2822018}},
+  {title: 'Pit Stop Espresso', location: {lat: 47.8134796, lng: -122.2859313}},
+  {title: 'Urban City Coffee', location: {lat: 47.80662230000001, lng: -122.2917646}},
+  {title: 'Caffe Ladro', location: {lat: 47.8209394, lng: -122.3189275}},
+  {title: 'Aloha Cafe', location: {lat: 47.8210596, lng: -122.3255188}},
+  {title: 'Gourmet Latte', location: {lat: 47.82147519999999, lng: -122.3191965}},
+  {title: 'Starbucks', location: {lat: 47.8177953, lng: -122.3174948}},
+  {title: 'Rila Bakery & Cafe', location: {lat: 47.8210347, lng: -122.3367312}},
+  {title: 'Cafe Aroma', location: {lat: 47.748389, lng: -122.323504}},
+  {title: 'Starbucks', location: {lat: 47.8242583, lng: -122.2714811}},
+  {title: 'Double Cup Coffee', location: {lat: 47.80174239999999, lng: -122.3297188}},
+  {title: 'Rooster\'s Espresso', location: {lat: 47.798316, lng: -122.328315}},
+  {title: 'Espresso Break', location: {lat: 47.7879252, lng: -122.30878}},
+  {title: 'Jason\'s Java', location: {lat: 47.7842249, lng: -122.273969}},
+  {title: 'Perfetto Espresso', location: {lat: 47.777868, lng: -122.3088007}},
+  {title: 'Supreme Bean Espresso', location: {lat: 47.7751154, lng: -122.3093113}},
+  {title: 'Starbucks', location: {lat: 47.7759684, lng: -122.3102143}},
+  {title: 'Richmond Beach Coffee Shop', location: {lat: 47.77016700000001, lng: -122.3765907}},
+  {title: 'Seattle Gourmet Coffee', location: {lat: 47.7573859, lng: -122.314393}},
+  {title: 'Ladybug Bikini Espresso', location: {lat: 47.7465702, lng: -122.3459965}},
+  {title: 'Starbucks', location: {lat: 47.7789243, lng: -122.220655}},
+  {title: 'Espresso Works', location: {lat: 47.7587894, lng: -122.2522275}},
+  {title: 'Coffee Sensations', location: {lat: 47.7689583, lng: -122.2693728}},
+  {title: 'Grounded Espresso', location: {lat: 47.7821982, lng: -122.3669183}},
+  {title: 'A Brewed Awakening', location: {lat: 47.8065516, lng: -122.3468446}},
+  {title: 'Starbucks', location: {lat: 47.790358, lng: -122.2159954}},
+  {title: 'Waterfront Coffee Company', location: {lat: 47.812553, lng: -122.38211}},
+  {title: 'Gourmet Latte', location: {lat: 47.7916057, lng: -122.2333771}},
+  {title: 'Sweet Shots', location: {lat: 47.8049276, lng: -122.3279186}}
+];
