@@ -14,9 +14,9 @@ function initMap() {
     }
   ];
 
-  // Creating new map
+  // Creating new map of coffee shops in north Seattle suburbs
   map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: 47.7841000, lng: -122.3082000},
+    center: {lat: 47.7841000, lng: -122.3182000},
     zoom: 13,
     styles: styles,
     mapTypeControl: false
@@ -44,17 +44,18 @@ function initMap() {
     // Get the position from the location array.
     var position = locations[i].location;
     var title = locations[i].title;
-
-    // Create a marker per location, and put into markers array.
+    var id = locations[i].id;
+    // Create a marker per location
     var marker = new google.maps.Marker({
       position: position,
-      map: map,
+      //map: map,
       title: title,
       animation: google.maps.Animation.DROP,
       icon: defaultIcon,
-      id: i
+      defaultIcon: defaultIcon,
+      highlightedIcon: highlightedIcon,
+      id: locations[i].id
     });
-
     // Push the marker to our array of markers.
     markers.push(marker);
     // Create an onclick event to open the large infowindow at each marker.
@@ -115,7 +116,6 @@ function initMap() {
       };
   };
   ko.applyBindings(new ViewModel());
-
 
   // Markers in the polygon are shown and hide any outside of it.
   drawingManager.addListener('overlaycomplete', function(event) {
@@ -255,34 +255,29 @@ function areaZoom() {
 
 // MODEL: These are the coffee shops that will be displayed
 var locations = [
-  {title: 'Speed Trap Espresso', location: {lat: 47.8172539, lng: -122.2898432}},
-  {title: 'Stopwatch Espresso', location: {lat: 47.8214669, lng: -122.2822018}},
-  {title: 'Pit Stop Espresso', location: {lat: 47.8134796, lng: -122.2859313}},
-  {title: 'Urban City Coffee', location: {lat: 47.80662230000001, lng: -122.2917646}},
-  {title: 'Caffe Ladro', location: {lat: 47.8209394, lng: -122.3189275}},
-  {title: 'Aloha Cafe', location: {lat: 47.8210596, lng: -122.3255188}},
-  {title: 'Gourmet Latte', location: {lat: 47.82147519999999, lng: -122.3191965}},
-  {title: 'Starbucks', location: {lat: 47.8177953, lng: -122.3174948}},
-  {title: 'Rila Bakery & Cafe', location: {lat: 47.8210347, lng: -122.3367312}},
-  {title: 'Cafe Aroma', location: {lat: 47.748389, lng: -122.323504}},
-  //{title: 'Starbucks', location: {lat: 47.8242583, lng: -122.2714811}},
-  {title: 'Double Cup Coffee', location: {lat: 47.80174239999999, lng: -122.3297188}},
-  {title: 'Rooster\'s Espresso', location: {lat: 47.798316, lng: -122.328315}},
-  {title: 'Espresso Break', location: {lat: 47.7879252, lng: -122.30878}},
-  {title: 'Jason\'s Java', location: {lat: 47.7842249, lng: -122.273969}},
-  {title: 'Perfetto Espresso', location: {lat: 47.777868, lng: -122.3088007}},
-  {title: 'Supreme Bean Espresso', location: {lat: 47.7751154, lng: -122.3093113}},
-  //{title: 'Starbucks', location: {lat: 47.7759684, lng: -122.3102143}},
-  {title: 'Richmond Beach Coffee Shop', location: {lat: 47.77016700000001, lng: -122.3765907}},
-  {title: 'Seattle Gourmet Coffee', location: {lat: 47.7573859, lng: -122.314393}},
-  {title: 'Ladybug Bikini Espresso', location: {lat: 47.7465702, lng: -122.3459965}},
-  //{title: 'Starbucks', location: {lat: 47.7789243, lng: -122.220655}},
-  {title: 'Espresso Works', location: {lat: 47.7587894, lng: -122.2522275}},
-  {title: 'Coffee Sensations', location: {lat: 47.7689583, lng: -122.2693728}},
-  {title: 'Grounded Espresso', location: {lat: 47.7821982, lng: -122.3669183}},
-  {title: 'A Brewed Awakening', location: {lat: 47.8065516, lng: -122.3468446}},
-  //{title: 'Starbucks', location: {lat: 47.790358, lng: -122.2159954}},
-  {title: 'Waterfront Coffee Company', location: {lat: 47.812553, lng: -122.38211}},
-  {title: 'Gourmet Latte', location: {lat: 47.7916057, lng: -122.2333771}},
-  {title: 'Sweet Shots', location: {lat: 47.8049276, lng: -122.3279186}}
+  {title: 'Speed Trap Espresso', location: {lat: 47.8172539, lng: -122.2898432}, id: 'ChIJh4dyUkIFkFQR_AbLRmMZW6M'},
+  {title: 'Stopwatch Espresso', location: {lat: 47.8214669, lng: -122.2822018}, id: 'ChIJi3_dUGkFkFQRL6dQqOo3Gwc'},
+  {title: 'Pit Stop Espresso', location: {lat: 47.8134796, lng: -122.2859313}, id: 'ChIJr5b_41wFkFQRPLFyGvyNAoo'},
+  {title: 'Urban City Coffee', location: {lat: 47.80662230000001, lng: -122.2917646}, id: 'ChIJY2_uYVcFkFQRsUMM3ZpQ8ys'},
+  {title: 'Caffe Ladro', location: {lat: 47.8209394, lng: -122.3189275}, id: 'ChIJo-geqzYFkFQR8Gl2SLk4p3c'},
+  {title: 'Aloha Cafe', location: {lat: 47.8210596, lng: -122.3255188}, id: 'ChIJUxrJFjMFkFQRpB4AY4YMa_4'},
+  {title: 'Gourmet Latte', location: {lat: 47.8174411, lng: -122.3171632}, id: 'ChIJ3SEYlDUFkFQRWo9_mULlcIc'},
+  {title: 'Starbucks', location: {lat: 47.8103318, lng: -122.3773061}, id: 'ChIJfXz8WfoakFQRujQfPNsjvw0'},
+  {title: 'Rila Bakery & Cafe', location: {lat: 47.8210347, lng: -122.3367312}, id: 'ChIJ2QRn-M0akFQRxu8-1IgGmpk'},
+  {title: 'Cafe Aroma', location: {lat: 47.748389, lng: -122.323504}, id: 'ChIJiaQA9v0QkFQRsNH0PgAtIGw'},
+  {title: 'Double Cup Coffee', location: {lat: 47.80174239999999, lng: -122.3297188}, id: 'ChIJcaiGNrsakFQRAUVs06Pz2yU'},
+  {title: 'Rooster\'s Espresso', location: {lat: 47.798316, lng: -122.328315}, id: 'ChIJS_3Ng6QakFQR_sv92ORPD08'},
+  {title: 'Espresso Break', location: {lat: 47.7879252, lng: -122.30878}, id: 'ChIJ8-GdsA8QkFQRBO7vkifpNVk'},
+  {title: 'Jason\'s Java', location: {lat: 47.7842249, lng: -122.273969}, id: 'ChIJhzbsbt4PkFQRvERzpebLtVA'},
+  {title: 'Perfetto Espresso', location: {lat: 47.777868, lng: -122.3088007}, id: 'ChIJcU6C4RQQkFQRJRRYpE9HBXE'},
+  {title: 'Supreme Bean Espresso', location: {lat: 47.7751154, lng: -122.3093113}, id: 'ChIJpT2Lp2oQkFQRR4JM2FyiVV8'},
+  {title: 'Richmond Beach Coffee Shop', location: {lat: 47.77016700000001, lng: -122.3765907}, id: 'ChIJtUA5TZ8QkFQRLXdZzWpfSYg'},
+  {title: 'Seattle Gourmet Coffee', location: {lat: 47.7573859, lng: -122.314393}, id: 'ChIJJUecslYQkFQRNVSuOJkWbfo'},
+  {title: 'Ladybug Bikini Espresso', location: {lat: 47.7465702, lng: -122.3459965}, id: 'ChIJ86loteAQkFQRpOA9hQ8Xlj8'},
+  {title: 'Espresso Works', location: {lat: 47.7598364, lng: -122.2499516}, id: 'ChIJTdkEPNgRkFQR6fYJsyX9jYI'},
+  {title: 'Coffee Sensations', location: {lat: 47.7689583, lng: -122.2693728}, id: 'ChIJNyenoisQkFQRajXcyq4_hSQ'},
+  {title: 'Grounded Espresso', location: {lat: 47.7821982, lng: -122.3669183}, id: 'ChIJ3URRI3kakFQRDz9t0sQAgaM'},
+  {title: 'A Brewed Awakening', location: {lat: 47.8065516, lng: -122.3468446}, id: 'ChIJSxOh8L8akFQRMfJFMaCTTMY'},
+  {title: 'Waterfront Cafe', location: {lat: 47.8101043, lng: -122.3875991}, id: 'ChIJ53ohzvgakFQR2OlJaA3uLnk'},
+  {title: 'Sweet Shots', location: {lat: 47.8047688, lng: -122.3283478}, id: 'ChIJgaLhcLoakFQRZ7irf3iknDg'}
 ];
