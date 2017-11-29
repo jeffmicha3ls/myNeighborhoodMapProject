@@ -48,7 +48,7 @@ function initMap() {
     // Create a marker per location
     var marker = new google.maps.Marker({
       position: position,
-      //map: map,
+      map: map,
       title: title,
       animation: google.maps.Animation.DROP,
       icon: defaultIcon,
