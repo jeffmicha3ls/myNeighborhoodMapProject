@@ -1,8 +1,7 @@
 var map;
 // Create a new blank array for all the listing markers.
 var markers = [];
-// This global polygon variable is to ensure only ONE polygon is rendered.
-var polygon = null;
+
 function initMap() {
   // Create a styles array to use with the map.
   var styles = [
@@ -20,19 +19,6 @@ function initMap() {
     zoom: 13,
     styles: styles,
     mapTypeControl: false
-  });
-
-  // Section for drawing polygon
-  var newInfoWindow = new google.maps.InfoWindow();
-  var drawingManager = new google.maps.drawing.DrawingManager({
-    drawingMode: google.maps.drawing.OverlayType.POLYGON,
-    drawingControl: true,
-    drawingControlOptions: {
-      position: google.maps.ControlPosition.TOP_LEFT,
-      drawingModes: [
-        google.maps.drawing.OverlayType.POLYGON
-      ]
-    }
   });
 
   // These are the listing marker icons.
@@ -58,6 +44,7 @@ function initMap() {
     });
     // Push the marker to our array of markers.
     markers.push(marker);
+    var newInfoWindow = new google.maps.InfoWindow();
     // Create an onclick event to open the large infowindow at each marker.
     marker.addListener('click', function() {
       makeInfoWindow(this, newInfoWindow);
@@ -79,9 +66,6 @@ function initMap() {
   }
   document.getElementById('show-coffee').addEventListener('click', showCoffee);
   document.getElementById('hide-coffee').addEventListener('click', hideCoffee);
-  document.getElementById('toggle-drawing').addEventListener('click', function() {
-    toggleDrawing(drawingManager);
-  });
   document.getElementById('area-zoom').addEventListener('click', function() {
     areaZoom();
   });
@@ -116,26 +100,6 @@ function initMap() {
       };
   };
   ko.applyBindings(new ViewModel());
-
-  // Markers in the polygon are shown and hide any outside of it.
-  drawingManager.addListener('overlaycomplete', function(event) {
-    // First, check if there is an existing polygon.
-    // If there is, get rid of it and remove the markers
-    if (polygon) {
-      polygon.setMap(null);
-      hideCoffee(markers);
-    }
-    // Switching the drawing mode to the HAND (i.e., no longer drawing).
-    drawingManager.setDrawingMode(null);
-    // Creating a new editable polygon from the overlay.
-    polygon = event.overlay;
-    polygon.setEditable(true);
-    // Searching within the polygon.
-    searchWithinPolygon();
-    // Make sure the search is re-done if the poly is changed.
-    polygon.getPath().addListener('set_at', searchWithinPolygon);
-    polygon.getPath().addListener('insert_at', searchWithinPolygon);
-  });
 }
 
 // This function populates the infowindow when the marker is clicked.
@@ -207,29 +171,6 @@ function makeMarkerIcon(markerColor) {
     new google.maps.Point(10, 34),
     new google.maps.Size(21,34));
   return markerImage;
-}
-
-// This shows/hides the drawing options.
-function toggleDrawing(drawingManager) {
-  if (drawingManager.map) {
-    drawingManager.setMap(null);
-    if (polygon !== null) {
-      polygon.setMap(null);
-    }
-  } else {
-    drawingManager.setMap(map);
-  }
-}
-
-// This function only shows markers within the polygon.
-function searchWithinPolygon() {
-  for (var i = 0; i < markers.length; i++) {
-    if (google.maps.geometry.poly.containsLocation(markers[i].position, polygon)) {
-      markers[i].setMap(map);
-    } else {
-      markers[i].setMap(null);
-    }
-  }
 }
 
 // This function zooms to location provided by user.
