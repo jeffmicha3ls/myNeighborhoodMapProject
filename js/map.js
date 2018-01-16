@@ -114,17 +114,18 @@ function initMap(data) {
               client_id: CLIENT_ID,
               client_secret: CLIENT_SECRET,
               v: VERSION,
-              //categoryId: foursquareID,
               ll: marker.position.lat() + ',' + marker.position.lng(),
               query: 'coffee',
               intent: 'match',
+              name: marker.title,
+              limit: 1,
               async: true
           },
           success: function(data) {
 
               if (infoWindow.marker != marker) {
                   infoWindow.marker = marker;
-                  infoWindow.setContent('<div>' + '<b>' + marker.title + '</b>' + '</div>' + '<br>' + data.response.groups[0].items[0].venue.name);
+                  infoWindow.setContent('<div>' + '<b>' + marker.title + '</b>' + '</div>' + '<br>' + data.response.groups[0].items[0].venue.name + '<br>' + data.response.groups[0].items[0].venue.location.formattedAddress + '<br>' + data.response.groups[0].items[0].venue.contact.formattedPhone);
                   infoWindow.addListener('closeclick', function() {
                       infoWindow.marker = null;
                   });
