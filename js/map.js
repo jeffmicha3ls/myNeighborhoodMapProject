@@ -97,7 +97,6 @@ function initMap(data) {
     };
 
     document.getElementById('show-coffee').addEventListener('click', showCoffee);
-    document.getElementById('hide-coffee').addEventListener('click', hideCoffee);
     document.getElementById('area-zoom').addEventListener('click', function() {
         areaZoom();
     });
@@ -137,13 +136,6 @@ function initMap(data) {
             bounds.extend(markers[i].position);
         }
         map.fitBounds(bounds);
-    }
-
-    // This function will loop through the coffee markers and hide them all.
-    function hideCoffee() {
-        for (var i = 0; i < markers.length; i++) {
-            markers[i].setMap(null);
-        }
     }
 
     function makeMarkerIcon(markerColor) {

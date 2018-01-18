@@ -14,15 +14,15 @@
         <h1 class="text">Find Your Favorite Coffee Shop</h1>
         <div>
           <input id="show-coffee" type="button" value="Show All Coffee Shops">
-          <input id="hide-coffee" type="button" value="Hide All Coffee Shops">
           <hr>
         <div>
-          <input id="area-zoom-text" type="text" placeholder="Enter a city (in red) to focus the map">
+          <h1 class="text">Filter Map</h1>
+          <input id="area-zoom-text" type="text" placeholder="Enter City to Focus Map">
           <input id="area-zoom" type="button" value="Zoom">
         </div>
         <hr>
         <div>
-          <h1 class="text">Coffee shops in North Seattle</h1>
+          <h1 class="text">Coffee Shops in North Seattle</h1>
           <ul data-bind="foreach: coffeePlaces">
             <li class="location" data-bind="text: name, click: $root.markerInfoWindow"></li>
           </ul>

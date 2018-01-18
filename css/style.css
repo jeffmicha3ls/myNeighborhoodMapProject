@@ -15,10 +15,9 @@ input {
 h1 {
   color: #525454;
   font-size: 20px;
-  margin: 0 0 10px 0;
-  text-align: center;
+  margin: 0 0 5px 0;
+  text-align: left;
 }
-#hide-coffee,
 #show-coffee {
   width: 48%;
 }
@@ -31,7 +30,7 @@ hr {
 #map {
   bottom:0px;
   height: 100%;
-  left: 295px;
+  left: 250px;
   position: absolute;
   right: 0px;
 }
@@ -41,13 +40,9 @@ hr {
   border-radius: 3px;
   height: 100%;
   line-height: 17px;
-  padding: 10px 10px 30px 10px;
+  padding: 10px 0px 10px 10px;
   text-align: left;
-  width: 280px;
-}
-#pano {
-  width: 300px;
-  height: 300px;
+  width: 240px;
 }
 .text {
   font-size: 12px;
@@ -55,15 +50,10 @@ hr {
 li {
   font-size: 12px;
 }
-#toggle-drawing {
-  width: 40%;
-  position: relative;
-  margin-left: 10px;
-}
 #area-zoom {
-  width: 25%;
+  width: 20%;
 }
 #area-zoom-text {
   position: relative;
-  width: 70%;
+  width: 50%;
 }
