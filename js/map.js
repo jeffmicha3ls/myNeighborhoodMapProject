@@ -61,11 +61,13 @@ function initMap(data) {
             lng: location.lng
         };
         var title = location.title;
+        var foursquareID = location.foursquareID;
         location.marker = new google.maps.Marker({
             position: position,
             map: map,
             title: title,
             icon: defaultIcon,
+            id: foursquareID,
             animation: google.maps.Animation.DROP
         });
         // Push the marker to our array of markers.
@@ -101,37 +103,23 @@ function initMap(data) {
     });
 
     function makeInfoWindow(marker, infoWindow) {
-      var CLIENT_ID = 'Z52MDI2AQMQ41PZA43IJVWCUK3M33JHEKGCSBGUYYI5DUIKZ';
-      var CLIENT_SECRET = '5E5ROB5B3PPW4MRPCQDQ4TWML20RND4IETUOFIYZOSCW3CL4';
-      var VERSION = '20170801';
-
-      var url = 'https://api.foursquare.com/v2/venues/explore?v=20170801';
-
+      var url = 'https://api.foursquare.com/v2/venues/' + marker.id + '?client_id=Z52MDI2AQMQ41PZA43IJVWCUK3M33JHEKGCSBGUYYI5DUIKZ&client_secret=5E5ROB5B3PPW4MRPCQDQ4TWML20RND4IETUOFIYZOSCW3CL4&v=20170801'
       $.ajax({
           url: url,
           dataType: 'json',
           data: {
-              client_id: CLIENT_ID,
-              client_secret: CLIENT_SECRET,
-              v: VERSION,
-              ll: marker.position.lat() + ',' + marker.position.lng(),
-              query: 'coffee',
-              intent: 'match',
-              name: marker.title,
-              limit: 1,
               async: true
           },
           success: function(data) {
 
               if (infoWindow.marker != marker) {
                   infoWindow.marker = marker;
-                  infoWindow.setContent('<div>' + '<b>' + marker.title + '</b>' + '</div>' + '<br>' + data.response.groups[0].items[0].venue.name + '<br>' + data.response.groups[0].items[0].venue.location.formattedAddress + '<br>' + data.response.groups[0].items[0].venue.contact.formattedPhone);
+                  infoWindow.setContent('<div>' + '<b>' + marker.title + '</b>' + '</div>' + '<br>' + data.response.venue.location.formattedAddress + '<br>' + data.response.venue.contact.formattedPhone);
                   infoWindow.addListener('closeclick', function() {
                       infoWindow.marker = null;
                   });
 
                   infoWindow.open(map, marker);
-                  console.log(data);
               }
 
           }
