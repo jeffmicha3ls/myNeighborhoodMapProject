@@ -30,7 +30,7 @@ hr {
 #map {
   bottom:0px;
   height: 100%;
-  left: 250px;
+  left: 300px;
   position: absolute;
   right: 0px;
 }
@@ -42,7 +42,7 @@ hr {
   line-height: 17px;
   padding: 10px 0px 10px 10px;
   text-align: left;
-  width: 240px;
+  width: 300px;
 }
 .text {
   font-size: 12px;
