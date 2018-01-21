@@ -2,33 +2,46 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, shrink-to-fit=no, maximum-scale=1, user-scalable=no, initial-scale=1">
 
     <link href="css/style.css" rel="stylesheet">
-
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   </head>
   <body>
-    <div class="container">
-      <div class="options-box">
-        <h1 class="text">Find Your Favorite Coffee Shop</h1>
-        <div>
-          <input id="show-coffee" type="button" value="Show All Coffee Shops">
-          <hr>
-        <div>
-          <h1 class="text">Filter Map</h1>
-          <input id="area-zoom-text" type="text" placeholder="Enter City to Focus Map">
-          <input id="area-zoom" type="button" value="Zoom">
+    <div id="wrapper">
+      <div id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+          <li class="sidebar-brand">
+            <li>
+              <a href="">
+                <h2 class="text">Coffee List</h2>
+              </a>
+            </li>
+          </li>
+        <div class="col-4" data-bind="foreach: coffeePlaces">
+            <li class="" type="submit" data-bind="text: name, click: $root.markerInfoWindow"></li>
         </div>
-        <hr>
-        <div>
-          <h1 class="text">Coffee Shops in North Seattle</h1>
-          <ul data-bind="foreach: coffeePlaces">
-            <li class="location" data-bind="text: name, click: $root.markerInfoWindow"></li>
-          </ul>
+        </ul>
+      </div>
+
+      <div id="page-content-wrapper">
+      <div class="container-fluid">
+        <div class="row">
+            <header>
+                <div class="col-9">
+                    <h2>Seattle Suburbs Coffee Shops</h2>
+                </div>
+                <a href="#menu-toggle" class="bt btn-default" id="menu-toggle">Open/Close Coffee List  |</a>
+                <a href="" class="bt btn-default" id="show-coffee">  Show All Coffee Shops</a>
+            </header>
         </div>
-      <div id="map"></div>
+      </div>
+      </div>
+      <div>
+        <input type="text" class="form-control" type="text" placeholder="Search..." data-bind="textInput: filter">
+      </div>
     </div>
+  <div class="col-12" id="map"></div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js"></script>
@@ -36,6 +49,14 @@
     <script src="js/vm.js"></script>
     <script src="js/model.js"></script>
     <script async onerror="mapError()" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAGcc67s4mmzOHVASN7AmG0um-0G_JP8_4&libraries=geometry,drawing,places&v=3&callback=initMap"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+    </script>
 
   </body>
 </html>

@@ -14,20 +14,9 @@ var ViewModel = function() {
     });
 
     this.markerInfoWindow = function(location) {
-        console.log(location);
-        google.maps.event.trigger(location.marker, 'click');
+        google.maps.event.trigger(location.marker, 'click')
         google.maps.event.trigger(location.marker, 'mouseover');
         google.maps.event.trigger(location.marker, 'mouseout');
-    };
-
-    this.currentCoffee = ko.observable(this.coffeeList()[0]);
-
-    self.setCoffee = function(clickedCoffee) {
-        self.currentCoffee(clickedCoffee);
-        var marker = markers.find(function(marker) {
-            return marker.title === clickedCoffee.title();
-        });
-        google.maps.event.trigger(location.marker, 'mouseover');
     };
 
     this.coffeePlaces = ko.computed(function() {
@@ -41,7 +30,6 @@ var ViewModel = function() {
         return self.coffeeList()
     } else {
         return ko.utils.arrayFilter(self.coffeeList(), function(location) {
-            console.log(location);
             var searchValue = location.name.toLowerCase().indexOf(filter) !== -1;
             location.marker.setVisible(searchValue);
             return searchValue

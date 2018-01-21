@@ -42,8 +42,8 @@ function initMap(data) {
 
     // Creating new map of coffee shops in north Seattle suburbs
     var LatLng = {
-        lat: 47.7841000,
-        lng: -122.3182000
+        lat: 47.7861000,
+        lng: -122.3282000
     };
     map = new google.maps.Map(document.getElementById('map'), {
         center: LatLng,
@@ -52,8 +52,9 @@ function initMap(data) {
         mapTypeControl: false
     });
 
-    var defaultIcon = makeMarkerIcon('1B965E');
-    var highlightedIcon = makeMarkerIcon('F71313');
+    var defaultIcon = 'img/cup_small.png';
+    //var defaultIcon = makeMarkerIcon('1B965E');
+    //var highlightedIcon = makeMarkerIcon('F71313');
 
     locations.forEach(function(location) {
         var position = {
@@ -79,11 +80,11 @@ function initMap(data) {
 
         function markerBounce() {
             location.marker.setAnimation(google.maps.Animation.BOUNCE);
-            location.marker.setIcon(highlightedIcon);
+            location.marker.setIcon(defaultIcon);
             setTimeout(function() {
                 location.marker.setAnimation(null);
             }, 1400);
-        };
+        }
 
         function defaultMarker() {
             location.marker.setIcon(defaultIcon);
@@ -91,15 +92,13 @@ function initMap(data) {
 
     });
 
+    document.getElementById('show-coffee').addEventListener('click', showCoffee);
+
     function markerInfoWindow() {
         makeInfoWindow(this, infoWindow);
+        map.setZoom(15);
         map.setCenter(this.position);
-    };
-
-    document.getElementById('show-coffee').addEventListener('click', showCoffee);
-    document.getElementById('area-zoom').addEventListener('click', function() {
-        areaZoom();
-    });
+    }
 
     function makeInfoWindow(marker, infoWindow) {
       var url = 'https://api.foursquare.com/v2/venues/' + marker.id + '?client_id=Z52MDI2AQMQ41PZA43IJVWCUK3M33JHEKGCSBGUYYI5DUIKZ&client_secret=5E5ROB5B3PPW4MRPCQDQ4TWML20RND4IETUOFIYZOSCW3CL4&v=20170801'
@@ -117,25 +116,12 @@ function initMap(data) {
                   infoWindow.addListener('closeclick', function() {
                       infoWindow.marker = null;
                   });
-
                   infoWindow.open(map, marker);
               }
-
           }
       }).fail(function(e) {
           alert("There was an error with the Foursquare API. Please refresh.");
       });
-    }
-
-    // This function will loop through the coffee markers and display them all.
-    function showCoffee() {
-        var bounds = new google.maps.LatLngBounds();
-        // Extend the boundaries of the map for each marker and display the marker
-        for (var i = 0; i < markers.length; i++) {
-            markers[i].setMap(map);
-            bounds.extend(markers[i].position);
-        }
-        map.fitBounds(bounds);
     }
 
     function makeMarkerIcon(markerColor) {
@@ -148,27 +134,14 @@ function initMap(data) {
       return markerImage;
     }
 
-    // This function zooms to location provided by user.
-    function areaZoom() {
-        var geocoder = new google.maps.Geocoder();
-        var address = document.getElementById('area-zoom-text').value;
-        if (address === '') {
-            window.alert('Enter location name or address');
-        } else {
-            geocoder.geocode({
-                address: address,
-                componentRestrictions: {
-                    locality: 'Washington'
-                }
-            }, function(results, status) {
-                if (status == google.maps.GeocoderStatus.OK) {
-                    map.setCenter(results[0].geometry.location);
-                    map.setZoom(15);
-                } else {
-                    window.alert('Location not found. Enter more specific location.');
-                }
-            });
+    // This function will loop through the coffee markers and display them all.
+    function showCoffee() {
+        var bounds = new google.maps.LatLngBounds();
+        for (var i = 0; i < markers.length; i++) {
+            markers[i].setMap(map);
+            bounds.extend(markers[i].position);
         }
+        map.fitBounds(bounds);
     }
 
     ko.applyBindings(new ViewModel());
