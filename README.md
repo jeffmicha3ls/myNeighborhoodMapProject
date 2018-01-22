@@ -1,8 +1,7 @@
 ## Neighborhood Coffee Map project
 
 This website is an online map project designed to locate coffee shops
-within a 10 mile radius in the north Seattle suburbs.  It is one of my **_Udacity_** projects
-to highlight the capabilities of the Google Maps and Foursquare APIs.
+within a 10 mile radius in the north Seattle suburbs.  It is one of my **_Udacity_** projects to highlight the capabilities of the **_Google_** Maps and **_Foursquare_** APIs.
 
 ### Usage
 
