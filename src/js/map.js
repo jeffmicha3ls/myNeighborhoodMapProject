@@ -103,7 +103,7 @@ function initMap(data) {
 
               var address, phone;
               // short circut
-              address = data.response.venue.location.formattedAddress || 'No Address Provided'
+              address = data.response.venue.location.formattedAddress || 'No Address Provided';
               phone = data.response.venue.contact.formattedPhone || 'No Phone Provided';
 
               if (infoWindow.marker != marker) {

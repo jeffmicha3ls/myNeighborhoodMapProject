@@ -6,37 +6,38 @@ module.exports = function(grunt) {
 		        banner : "/*! javascript file */\n"
 	     },
 	     files : {
-			      src: 'js/vm.js',
-            dest: 'js/vm.min.js'
+			      src: 'js/map.js',
+            dest: 'js/map.min.js'
        }
     },
 
-    htmlmin: {
-      dist: {
-      options: {
-        removeComments: true,
-        collapseWhitespace: true
-      },
-      files: {
-      'index.min.html': 'index.html'
-      }
-     }
-   },
+//    htmlmin: {
+//      dist: {
+//      options: {
+//        removeComments: true,
+//        collapseWhitespace: true
+//      },
+//      files: {
+//      'index.min.html': 'index.html'
+//      }
+//     }
+//   },
 
-    cssmin: {
-      dist:{
-        files: {
-          'css/style.min.css':'css/style.css'
-        }
-      }
-    }
+//    cssmin: {
+//      dist:{
+//        files: {
+//          'css/style.min.css':'css/style.css'
+//        }
+//      }
+//    }
 
   });
 
-  grunt.loadNpmTasks('grunt-contrib-htmlmin');
+  //grunt.loadNpmTasks('grunt-contrib-htmlmin');
   grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-contrib-cssmin');
+  //grunt.loadNpmTasks('grunt-contrib-cssmin');
 
-  grunt.registerTask('default', ['htmlmin', 'cssmin', 'uglify']);
+  grunt.registerTask('default', ['uglify']);
+  //grunt.registerTask('default', ['htmlmin', 'cssmin', 'uglify']);
 
 };
