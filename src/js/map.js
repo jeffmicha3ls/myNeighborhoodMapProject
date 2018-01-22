@@ -88,7 +88,7 @@ function initMap(data) {
 
         function defaultMarker() {
             location.marker.setIcon(defaultIcon);
-        };
+        }
 
     });
 
@@ -101,7 +101,7 @@ function initMap(data) {
     }
 
     function makeInfoWindow(marker, infoWindow) {
-      var url = 'https://api.foursquare.com/v2/venues/' + marker.id + '?client_id=YOUR_4SQUARE_CLIENT_ID&client_secret=YOUR_4SQUARE_CLIENT_SECRET&v=20170801'
+      var url = 'https://api.foursquare.com/v2/venues/' + marker.id + '?client_id=YOUR_4SQUARE_CLIENT_ID&client_secret=YOUR_4SQUARE_CLIENT_SECRET&v=20170801';
       $.ajax({
           url: url,
           dataType: 'json',
