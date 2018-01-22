@@ -101,7 +101,7 @@ function initMap(data) {
     }
 
     function makeInfoWindow(marker, infoWindow) {
-      var url = 'https://api.foursquare.com/v2/venues/' + marker.id + '?client_id=Z52MDI2AQMQ41PZA43IJVWCUK3M33JHEKGCSBGUYYI5DUIKZ&client_secret=5E5ROB5B3PPW4MRPCQDQ4TWML20RND4IETUOFIYZOSCW3CL4&v=20170801'
+      var url = 'https://api.foursquare.com/v2/venues/' + marker.id + '?client_id=YOUR_4SQUARE_CLIENT_ID&client_secret=YOUR_4SQUARE_CLIENT_SECRET&v=20170801'
       $.ajax({
           url: url,
           dataType: 'json',

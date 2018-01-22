@@ -1,0 +1,33 @@
+{
+  "name": "frontend-nanodegree-myNeighborhoodMapProject",
+  "version": "1.0.0",
+  "description": "webMap",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-clean": "~0.6.0",
+    "grunt-contrib-copy": "~0.8.0",
+    "grunt-contrib-cssmin": "^2.2.1",
+    "grunt-contrib-htmlmin": "^2.4.0",
+    "grunt-contrib-imagemin": "^2.0.1",
+    "grunt-contrib-jshint": "^0.10.0",
+    "grunt-contrib-nodeunit": "~0.4.1",
+    "grunt-contrib-uglify": "^0.5.1",
+    "grunt-mkdir": "~0.1.2",
+    "grunt-responsive-images": "^0.1.9"
+  },
+  "dependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jeffmicha3ls/myNeighborhoodMapProject.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jeffmicha3ls/myNeighborhoodMapProject/issues"
+  },
+  "homepage": "https://github.com/jeffmicha3ls/myNeighborhoodMapProject#readme"
+}

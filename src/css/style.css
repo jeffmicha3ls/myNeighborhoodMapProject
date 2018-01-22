@@ -7,15 +7,16 @@ body {
   overflow-x: hidden;
 }
 
+header {
+  margin: -25px 0px 0px 0px;
+}
+
 input {
   font-size: 10px;
 }
 
-hr {
-  background: #999595;
-  height: 5px;
-  margin: 0px 0 0px 0;
-  border: none;
+h4 {
+  text-decoration: underline;
 }
 
 #map {
@@ -30,16 +31,8 @@ hr {
     border-radius: 3px;
     height: 400px;
     line-height: 35px;
-    padding: 10px 10px 30px 10px;
     width: 270px;
-    /*text-align: left;*/
 }
-
-/*!
-* Start Bootstrap - Simple Sidebar (http://startbootstrap.com/)
-* Copyright 2013-2016 Start Bootstrap
-* Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE)
-*/
 
 #wrapper {
     padding-left: 0;
@@ -50,16 +43,16 @@ hr {
 }
 
 #wrapper.toggled {
-    padding-left: 250px;
+    padding-left: 220px;
 }
 
 #sidebar-wrapper {
     z-index: 1000;
     position: fixed;
-    left: 250px;
+    left: 220px;
     width: 0;
     height: 100%;
-    margin-left: -250px;
+    margin-left: -220px;
     overflow-y: auto;
     background: #fff;
     -webkit-transition: all 0.5s ease;
@@ -69,28 +62,28 @@ hr {
 }
 
 #wrapper.toggled #sidebar-wrapper {
-    width: 250px;
+    width: 220px;
 }
 
 #page-content-wrapper {
     z-index: 1000;
     width: 100%;
     position: absolute;
-    padding: 15px;
+    padding: 5px;
     background-color: white;
 }
 
 #wrapper.toggled #page-content-wrapper {
     position: absolute;
-    margin-right: -250px;
+    margin-right: -220px;
 }
 
 .sidebar-nav {
     position: absolute;
     top: 0;
-    width: 250px;
+    width: 220px;
     margin: 0px;
-    padding: 0;
+    padding: 0px;
     list-style: none;
 }
 
@@ -117,9 +110,9 @@ hr {
 }
 
 .sidebar-nav>.sidebar-brand {
-    height: 5px;
+    height: 30px;
     font-size: 18px;
-    line-height: 60px;
+    line-height: 30px;
 }
 
 .sidebar-nav>.sidebar-brand a {
@@ -137,7 +130,7 @@ hr {
     }
 
     #wrapper.toggled {
-        padding-left: 250px;
+        padding-left: 220px;
     }
 
     #sidebar-wrapper {
@@ -145,7 +138,7 @@ hr {
     }
 
     #wrapper.toggled #sidebar-wrapper {
-        width: 250px;
+        width: 220px;
     }
 
     #page-content-wrapper {
