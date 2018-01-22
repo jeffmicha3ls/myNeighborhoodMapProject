@@ -15,8 +15,6 @@ var ViewModel = function() {
 
     this.markerInfoWindow = function(location) {
         google.maps.event.trigger(location.marker, 'click')
-        google.maps.event.trigger(location.marker, 'mouseover');
-        google.maps.event.trigger(location.marker, 'mouseout');
     };
 
     this.coffeePlaces = ko.computed(function() {

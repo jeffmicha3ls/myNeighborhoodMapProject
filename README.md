@@ -7,9 +7,11 @@ within a 10 mile radius in the north Seattle suburbs.  It is one of my **_Udacit
 
 This is a simple website that is accessed by either cloning the repository or
 downloading the zip file.  Once you have the files on your system, you can initiate
-your coffee search by clicking on the dist/index.min.html file.  If you want to
-modify/test the code, you can access the src/index.html and src/js/map.js files
-to replace the appropriate API keys.
+your coffee search by clicking on the dist/index.min.html file.  
+
+If you want to modify/test the code, you can access the src/index.html and src/js/map.js files
+to replace the appropriate API keys.  After you have completed code modification, you'll
+need to copy src to the dist folder to minify and uglify with the Grunt file provided.
 
 ### Tools
 

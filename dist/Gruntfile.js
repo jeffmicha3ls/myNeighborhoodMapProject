@@ -6,8 +6,8 @@ module.exports = function(grunt) {
 		        banner : "/*! javascript file */\n"
 	     },
 	     files : {
-			      src: 'js/map.js',
-            dest: 'js/map.min.js'
+			      src: 'js/vm.js',
+            dest: 'js/vm.min.js'
        }
     },
 
@@ -20,8 +20,8 @@ module.exports = function(grunt) {
       files: {
       'index.min.html': 'index.html'
       }
-      }
-    },
+     }
+   },
 
     cssmin: {
       dist:{

@@ -53,8 +53,6 @@ function initMap(data) {
     });
 
     var defaultIcon = 'img/cup_small.png';
-    //var defaultIcon = makeMarkerIcon('1B965E');
-    //var highlightedIcon = makeMarkerIcon('F71313');
 
     locations.forEach(function(location) {
         var position = {
@@ -75,8 +73,7 @@ function initMap(data) {
         markers.push(location.marker);
 
         location.marker.addListener('click', markerInfoWindow);
-        location.marker.addListener('mouseover', markerBounce);
-        location.marker.addListener('mouseout', defaultMarker);
+        location.marker.addListener('click', markerBounce);
 
         function markerBounce() {
             location.marker.setAnimation(google.maps.Animation.BOUNCE);
@@ -86,13 +83,7 @@ function initMap(data) {
             }, 1400);
         }
 
-        function defaultMarker() {
-            location.marker.setIcon(defaultIcon);
-        }
-
     });
-
-    document.getElementById('show-coffee').addEventListener('click', showCoffee);
 
     function markerInfoWindow() {
         makeInfoWindow(this, infoWindow);
@@ -110,29 +101,25 @@ function initMap(data) {
           },
           success: function(data) {
 
+              var address, phone;
+              // short circut
+              address = data.response.venue.location.formattedAddress || 'No Address Provided'
+              phone = data.response.venue.contact.formattedPhone || 'No Phone Provided';
+
               if (infoWindow.marker != marker) {
                   infoWindow.marker = marker;
-                  infoWindow.setContent('<div>' + '<b>' + marker.title + '</b>' + '</div>' + '<br>' + data.response.venue.location.formattedAddress + '<br>' + data.response.venue.contact.formattedPhone);
+                  infoWindow.setContent('<div>' + '<b>' + marker.title + '</b>' + '</div>' + '<br>' + address + '<br>' + phone);
                   infoWindow.addListener('closeclick', function() {
                       infoWindow.marker = null;
                   });
                   infoWindow.open(map, marker);
+                  console.log(data);
               }
           }
       }).fail(function(e) {
           alert("There was an error with the Foursquare API. Please refresh.");
       });
     }
-
-//    function makeMarkerIcon(markerColor) {
-//      var markerImage = new google.maps.MarkerImage(
-//        'http://chart.googleapis.com/chart?chst=d_map_spin&chld=1.15|0|'+ markerColor + '|40|_|%E2%80%A2',
-//      new google.maps.Size(21, 34),
-//      new google.maps.Point(0, 0),
-//      new google.maps.Point(10, 34),
-//      new google.maps.Size(21,34));
-//      return markerImage;
-//    }
 
     // This function will loop through the coffee markers and display them all.
     function showCoffee() {
